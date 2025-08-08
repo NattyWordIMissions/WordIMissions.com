@@ -331,7 +331,21 @@ p{margin-bottom:1.5rem;}
     border: 2px solid #fff;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
+/* ---------- 12.  Visual adjustments for Mobiles -Small Screen Display  -------------------- */
 
+<br>@media (max-width: 480px){<br> main{ padding-left: 1rem; }<br>}<br> 
+<br>@media (max-width: 480px){<br> #sidebar{<br> position:fixed;<br> top:0;<br> left:0;<br> right:0;<br> height:3rem;<br> z-index:1000;<br> background:rgba(255,255,255,0.9);<br> backdrop-filter:none;<br> box-shadow:0 2px 5px rgba(0,0,0,0.1);<br> }<br> #sidebar button{<br> width: 100%;<br> }<br> main{<br> margin-top:3rem;<br> }<br>}<br>
+<br>section h2{<br> font-size: clamp(1.5rem, 4vw, 2.5rem);<br>}<br>
+<br>.intro, p{<br> max-width: 90vw;<br> margin-left:auto;<br> margin-right:auto;<br>}<br>
+
+/*full width for bg images on mobile */
+<br>section{<br> background-size: cover;<br> background-position: center;<br> min-height: 60vh;<br>}<br>
+<br>.carousel{<br> width:100%;<br> overflow-x:auto;<br> -webkit-overflow-scrolling:touch;<br> scroll-snap-type:x mandatory;<br>}<br>.carousel .inner{<br> display:flex;<br> gap:1rem;<br> scroll-snap-align:start;<br>}<br>.carousel .item{<br> flex:0 0 90vw;<br>}<br>
+
+/*hiding arrow on mobile */
+<br>@media (max-width: 480px){<br> .arrow{display:none;}<br>}<br>
+
+/* test if backgroudn fix makes issues <br>@media (hover: none){<br> section{ background-attachment:scroll; }<br>}<br> */
 
 /*======================================================================
 END OF STYLESHEET
