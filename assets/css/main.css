@@ -1,0 +1,338 @@
+/*======================================================================
+1️⃣  Custom properties (used by all the selectors)
+======================================================================*/
+:root{
+    --bg:#f0f8ff;
+    --accent:#ff5a5f;
+    --text:#222;
+    --font:'Merriweather', Georgia, serif;
+    --sidebar-width:200px;          /* width of the transparent sidebar */
+}
+
+/*======================================================================
+2️⃣  Global resets & helpers
+======================================================================*/
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+    font-family:var(--font);
+    color:var(--text);
+    background:var(--bg);
+    overflow-x:hidden;
+    display:flex;                     /* main layout: sidebar + main */
+}
+
+/*======================================================================
+3️⃣  Sidebar
+======================================================================*/
+#sidebar{
+    position:fixed;
+    left:0;top:0;bottom:0;
+    width:var(--sidebar-width);
+    background:rgba(255,255,255,0.4);   /* transparent but still usable */
+    backdrop-filter:blur(4px);
+    box-shadow:2px 0 5px rgba(0,0,0,.1);
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding:1rem 0;
+    z-index:10;                         /* above background images, below text */
+}
+#sidebar button{
+    background:none;
+    border:none;
+    padding:0.75rem 1rem;
+    text-align:left;
+    width:100%;
+    cursor:pointer;
+    font-size:1rem;
+    transition:background .2s;
+}
+#sidebar button:hover{background:rgba(0,0,0,.05);}
+#sidebar .nav-section{margin-top:1rem;}
+#sidebar #impressumBtn{margin-top:auto;margin-bottom:1rem;}
+
+/*======================================================================
+4️⃣  Main container
+======================================================================*/
+main{
+    /* 20 px gap to the left of the sidebar */
+    margin-left:calc(var(--sidebar-width)+20px);
+    flex:1;
+    overflow-x:hidden;
+    position:relative;
+    z-index:1;
+}
+
+/*======================================================================
+5️⃣  Section styles (background is set via --section-bg)
+======================================================================*/
+section{
+    /* ------------- IMPORTANT -------------
+       The left‑padding that was pushing the text all the way under
+       the sidebar has been replaced with a *small* offset (20 px).
+       The text will now start 20 px *besides* the sidebar.
+    --------------------------------------- */
+    position:relative;
+    min-height:65vh;
+max-height:100vh;
+    padding:2rem 1rem;              /* general top/bottom/right padding */
+    padding-left: calc(var(--sidebar-width) + 20px);
+		 /*padding-left: var(--sidebar-width);              now tiny offset from the sidebar */
+    background:var(--section-bg); /* deletion of this here will block all backgrounds.. */
+    background-attachment: fixed;          /* <--- fixed background = parallax */
+    background-size:cover;
+    background-position:center;
+    background-repeat: no-repeat;          /* optional, but usually wanted */
+    scroll-margin-top:var(--sidebar-width);
+}
+/* --------------------------------------------------------------
+   6️⃣  Welcome section – fill the viewport on load
+   -------------------------------------------------------------- */
+#welcome{
+    height:100vh;                 /* 100 % of the browser window */
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+section:nth-of-type(odd){background-color:#e7f3ff;}
+section:nth-of-type(even){background-color:#fff;}
+/* ---------- h2  Style the section titles (e.g. NattyWordMissions, PixelsIVision) --------------- */
+section h2{
+    /* size & colour */
+    font-size: 2.3rem;          /* a touch bigger than the default */
+    color: rgba(0,0,0,0.8);                /* very dark – almost black for contrast */
+
+    /* make the box only as wide as the text */
+    display: inline-block;
+
+    /* background box */
+    background: rgba(255, 255, 255, 0.3);   /* translucent white */
+    padding: 0.5rem 1rem;                  /* breathing room */
+    border-radius: 6px;                     /* rounded corners */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);  /* subtle drop shadow */
+
+    /* spacing from the following text */
+    margin-bottom: 1rem;
+}
+
+p{margin-bottom:1.5rem;}
+
+/*======================================================================
+6️⃣  Welcome section
+======================================================================*/
+#welcome h1{
+    text-align:center;
+    max-width:90vw;
+    margin:0 auto 1rem;
+    font-size:4.5rem;
+    color: rgba(210,210,210,0.85);
+}
+#welcome{
+    height:100vh;                 /* 100 % of the browser window */
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+#welcome .word{
+    display:inline-block;
+    opacity:0.9;
+    transform:translateY(30px);
+    transition:transform .5s ease, opacity .5s ease;
+    margin-right:.2em;
+}
+#welcome .word:last-child{margin-right:0;}
+#welcome .word.show{opacity:1;transform:translateY(0);}
+#welcome .ctrl{margin:1rem 0;text-align:center;}
+#welcome .ctrl button{margin:0 .5rem;margin-right:5rem;}
+#welcome-heading{
+    display:inline-block;
+    margin:0 auto;
+    background:rgba(0,0,0,0.55);
+    border-radius:12px;
+    padding:1rem 1.5rem;
+    box-shadow:0 4px 8px rgba(0,0,0,0.3);
+}
+#welcome-heading h1{
+    color:#fff;
+    font-size:4.5rem;
+}
+
+/*======================================================================
+7.1 Carousel
+======================================================================*/
+.carousel{
+    position:relative;
+    overflow-x:visible;
+    width:100%;
+    height:500px;
+    margin-top:1rem;
+    scroll-snap-type:x mandatory;
+   /*  margin-left:var(--sidebar-width);   iput that in commentary because somehow the other offset seems to double that one here.. keeps the slider below the sidebar */
+    z-index:15;
+}
+.carousel .inner{
+    display:flex;
+    height:100%;
+    transition:transform .4s ease;
+    scroll-snap-type:x mandatory;
+}
+.carousel .item{
+    flex:none;
+    width:600px;
+    height:100%;
+    margin-right:20px;
+    background:#fff;
+    box-shadow:0 2px 4px rgba(0,0,0,.1);
+    border-radius:4px;
+    overflow:hidden;
+    scroll-snap-align:start;
+}
+.carousel .item iframe,
+.carousel .item img{
+    width:100%;height:100%;object-fit:cover;
+}
+.carousel .inner .item.intro-item{
+    background:rgba(0,0,0,0.3);
+    color:#fff;
+    font-size:1.4rem;
+    line-height:1.4;
+    padding:1rem 1.5rem;
+    box-sizing:border-box;
+    text-align:center;
+    width:600px;
+    margin-right:20px;
+    background-clip:padding-box;
+}
+.carousel .inner .item.intro-item.show{
+    opacity:1;
+    transition:opacity .4s ease;
+}
+.carousel .arrow{
+    position:fixed;
+    top:50%;transform:translateY(-50%);
+    width:40px;height:40px;
+    background:rgba(255,255,255,.8);
+    border:none;border-radius:20px;
+    cursor:pointer;font-size:1.5rem;
+    display:flex;align-items:center;justify-content:center;
+    user-select:none;
+    z-index:20;
+}
+.carousel .arrow.left{left:calc(var(--sidebar-width)+10px);}
+.carousel .arrow.right{right:10px;}
+.carousel .arrow:hover{background:rgba(255,255,255,1);}
+
+/*======================================================================
+8. Impressum
+======================================================================*/
+#impressum p{margin:0.5rem 0;}
+#impressum .portrait{
+    text-align:center;
+    margin:2rem 0;
+}
+#impressum .portrait img{
+    border-radius:50%;
+    box-shadow:0 4px 12px rgba(0,0,0,0.3);
+}
+
+/*======================================================================
+9. Minigame
+======================================================================*/
+#minigame{position:relative;}
+#minigame img{width:200px;height:200px;cursor:pointer;}
+#minigame iframe{
+    position:absolute;
+    inset:0;
+    border:none;
+    display:none;
+}
+
+/*======================================================================
+10. Intro container
+======================================================================*/
+.intro{
+    background:transparent;
+    color:inherit;
+    padding:.5rem 1rem;
+    max-width:80ch;
+    margin-top:1rem;
+}
+
+/*======================================================================
+11. Button styles (single, clean block)
+======================================================================*/
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:.55rem 1.25rem;
+    font-size:.9rem;
+    line-height:1;
+    border:none;
+    border-radius:.3rem;
+    cursor:pointer;
+    font-weight:600;
+    transition:background .18s ease,transform .1s ease;
+    user-select:none;
+    text-decoration:none;
+}
+.btn-primary{
+    background:rgba(211,211,211,.7);   /* silbrig, semi‑transparent */
+    color:#222;
+    padding:.9rem 1.9rem;
+    font-size:2rem;
+    line-height:1.1;
+    border-radius:.35rem;
+}
+.btn-primary:hover{background:rgba(211,211,211,.85);}
+.btn-secondary{
+    background:rgba(255,255,255,.3);
+    color:#222;
+}
+.btn-secondary:hover{background:rgba(255,255,255,.5);}
+.btn:focus{outline:2px solid #ff5a5f;outline-offset:2px;}
+.btn:active{transform:translateY(1px);}
+
+/*======================================================================
+12. Parallax effect for all sections
+======================================================================*/
+    /* section{
+ background-attachment:fixed;
+    background-size:cover;
+    background-position:center;
+    opacity:0; */
+    animation:fadeIn 1s forwards;
+} 
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+*/ 
+
+
+/* ---------- 11.  Improve the Impressum text  -------------------- */
+#impressum p{
+    /* make the text a bit larger & darker */
+    font-size: 1.15rem;
+    color: #222;           /* dark gray – easier to read on light backgrounds */
+
+    /* give the paragraph a translucent white box */
+    background: rgba(255, 255, 255, 0.3);
+    padding: 0.75rem 1.25rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+
+    /* optional: keep a little spacing between paragraphs */
+    margin-bottom: 1rem;
+}
+
+/* Optional: add a subtle border around the portrait image */
+#impressum .portrait img{
+    border: 2px solid #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+
+/*======================================================================
+END OF STYLESHEET
+======================================================================*/
