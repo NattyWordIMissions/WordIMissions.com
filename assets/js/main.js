@@ -205,11 +205,29 @@ function initMinigame() {
   }
 }
 
-/* ────────────────────────────────────── 6.  Parallax background animation ────────────────────────────────────── */
+/* ------------------------------------------------------------------
+   Normalise a relative path so that it always points to the
+   repository root, regardless of where the document is served.
+   ------------------------------------------------------------------ */
+function normalisePath(path) {
+  // If the path starts with a slash, treat it as *domain‑root*
+  // relative and prepend the repository name that GitHub Pages
+  // serves under (e.g. /WordIMissions.com/).  When we run
+  // locally the repo is the root of the server, so the
+  // repository name is ''.
+  const repoName = window.location.pathname.split('/')[1] || '';
+  return repoName ? `/${repoName}${path}` : path;
+}
+
+/* ------------------------------------------------------------------
+   Parallax initialisation (unchanged except for the normalisation)
+   ------------------------------------------------------------------ */
 function initParallax() {
   const sections = document.querySelectorAll('section[data-bg]');
   sections.forEach(sec => {
-    sec.style.setProperty('--section-bg', `url('${sec.dataset.bg}')`);
+    const url = normalisePath(sec.dataset.bg);   // <-- normalise here
+    sec.style.setProperty('--section-bg', `url('${url}')`);
+
     sec.style.transform = 'translateX(-30px)';          // start off‑screen
   });
 
