@@ -1,33 +1,41 @@
 <section id="pixels" data-bg="/assets/data/images/background/pixels.webp">
- <!-- 1️⃣  Link that stays functional – points to the real intro file -->
- <!-- <p><a href="assets/data/pixels_intro.txt" target="_blank">Kurzüberblick</a></p> -->
-
-
-
-
-
-  <!-- 2️⃣  Title (unchanged from your original) -->
   <h2>PixelsIVision</h2>
 
-  <!-- 3️⃣  Intro container – will receive the fetched text -->
   <div class="intro" data-src="assets/data/pixels_intro.txt"></div>
 
-  <!-- 4️⃣  Carousel markup – copy‑paste identical to Natty, only IDs differ -->
-  <div class="carousel">
-    <div class="inner">
-      <!-- You can replace these 5 items with whatever media you like -->
-      <div class="item">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/pDOlvbtmn7Y?si=Yo02JW5WGdBNuHXG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>  /* <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=xyz" frameborder="0" allowfullscreen></iframe> */
+  <!-- -------------- CAROUSEL WRAPPER ---------------- -->
+  <div class="carousel-wrapper">
+    <!-- -------------- CAROUSEL ----------------------- -->
+    <div class="carousel">
+      <div class="inner">
+        <div class="item">
+		<div class="video-wrapper">
+          <iframe width="560" height="315"
+                  src="https://www.youtube.com/embed/pDOlvbtmn7Y?si=Yo02JW5WGdBNuHXG"
+                  title="YouTube video player" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        	</div>
+	</div>
+        <div class="item">
+		<div class="video-wrapper">
+          <iframe width="560" height="315"
+                  src="https://www.youtube.com/embed/ahJntxHBP48?si=pWn4iWA8eo399wrq"
+                  title="YouTube video player" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        	</div>
+	</div>
+        <div class="item"><img src="https://picsum.photos/id/1013/1200/800" alt="Instagram post"></div>
+        <div class="item"><img src="https://picsum.photos/id/1024/1200/800" alt="Colorful"></div>
+        <div class="item"><img src="https://picsum.photos/id/1033/1200/800" alt="Colorful"></div>
+        <div class="item"><img src="https://picsum.photos/id/1043/1200/800" alt="Colorful"></div>
       </div>
-      <div class="item">
-	<iframe width="560" height="315" src="https://www.youtube.com/embed/ahJntxHBP48?si=pWn4iWA8eo399wrq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>  </div>
-      <div class="item"><img src="https://picsum.photos/id/1013/1200/800" alt="Instagram post"></div>
-      <div class="item"><img src="https://picsum.photos/id/1024/1200/800" alt="Colorful"></div>
-      <div class="item"><img src="https://picsum.photos/id/1033/1200/800" alt="Colorful"></div>
-      <div class="item"><img src="https://picsum.photos/id/1043/1200/800" alt="Colorful"></div>
+    <!-- -------------- ARROWS (new classes) ----------------------- -->
+    <button class="arrow prev">&#9664;</button>
+    <button class="arrow next">&#9654;</button>
     </div>
-    <!-- 4️⃣  Navigation arrows (the JS will attach listeners to these) -->
-    <button class="arrow left">&#9664;</button>
-    <button class="arrow right">&#9654;</button>
+
   </div>
+  <!-- ------------------------------------------------------------- -->
 </section>

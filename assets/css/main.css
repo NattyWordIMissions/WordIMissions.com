@@ -1,6 +1,6 @@
-/*======================================================================
-1️⃣  Custom properties (used by all the selectors)
-======================================================================*/
+/*=============================================================
+  1️⃣  Custom properties (used by all the selectors)
+  ============================================================*/
 :root{
     --bg:#f0f8ff;
     --accent:#ff5a5f;
@@ -9,9 +9,9 @@
     --sidebar-width:200px;          /* width of the transparent sidebar */
 }
 
-/*======================================================================
-2️⃣  Global resets & helpers
-======================================================================*/
+/*=============================================================
+  2️⃣  Global resets & helpers
+  ============================================================*/
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{
@@ -22,9 +22,9 @@ body{
     display:flex;                     /* main layout: sidebar + main */
 }
 
-/*======================================================================
-3️⃣  Sidebar
-======================================================================*/
+/*=============================================================
+  3️⃣  Sidebar
+  ============================================================*/
 #sidebar{
     position:fixed;
     left:0;top:0;bottom:0;
@@ -52,11 +52,10 @@ body{
 #sidebar .nav-section{margin-top:1rem;}
 #sidebar #impressumBtn{margin-top:auto;margin-bottom:1rem;}
 
-/*======================================================================
-4️⃣  Main container
-======================================================================*/
+/*=============================================================
+  4️⃣  Main container
+  ============================================================*/
 main{
-    /* 20 px gap to the left of the sidebar */
     margin-left:calc(var(--sidebar-width)+20px);
     flex:1;
     overflow-x:hidden;
@@ -64,77 +63,60 @@ main{
     z-index:1;
 }
 
-/*======================================================================
-5️⃣  Section styles (background is set via --section-bg)
-======================================================================*/
+/*=============================================================
+  5️⃣  Section styles (background is set via --section-bg)
+  ============================================================*/
 section{
-    /* ------------- IMPORTANT -------------
-       The left‑padding that was pushing the text all the way under
-       the sidebar has been replaced with a *small* offset (20 px).
-       The text will now start 20 px *besides* the sidebar.
-    --------------------------------------- */
     position:relative;
     min-height:65vh;
-max-height:100vh;
+    max-height:100vh;
     padding:2rem 1rem;              /* general top/bottom/right padding */
     padding-left: calc(var(--sidebar-width) + 20px);
-		 /*padding-left: var(--sidebar-width);              now tiny offset from the sidebar */
-    background:var(--section-bg); /* deletion of this here will block all backgrounds.. */
-    background-attachment: fixed;          /* <--- fixed background = parallax */
+    background:var(--section-bg);
+    background-attachment:fixed;          /* parallax */
     background-size:cover;
     background-position:center;
-    background-repeat: no-repeat;          /* optional, but usually wanted */
+    background-repeat:no-repeat;
     scroll-margin-top:var(--sidebar-width);
+    animation:fadeIn 1s forwards;
 }
-/* --------------------------------------------------------------
-   6️⃣  Welcome section – fill the viewport on load
-   -------------------------------------------------------------- */
+section:nth-of-type(odd){background-color:#e7f3ff;}
+section:nth-of-type(even){background-color:#fff;}
+section h2{
+    font-size: 2.3rem;
+    color: rgba(0,0,0,0.8);
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+}
+p{margin-bottom:1.5rem;}
+.intro{
+    background:transparent;
+    color:inherit;
+    padding:.5rem 1rem;
+    max-width:80ch;
+    margin-top:1rem;
+}
+
+/*=============================================================
+  6️⃣  Welcome section
+  ============================================================*/
 #welcome{
-    height:100vh;                 /* 100 % of the browser window */
+    height:100vh;
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
 }
-section:nth-of-type(odd){background-color:#e7f3ff;}
-section:nth-of-type(even){background-color:#fff;}
-/* ---------- h2  Style the section titles (e.g. NattyWordMissions, PixelsIVision) --------------- */
-section h2{
-    /* size & colour */
-    font-size: 2.3rem;          /* a touch bigger than the default */
-    color: rgba(0,0,0,0.8);                /* very dark – almost black for contrast */
-
-    /* make the box only as wide as the text */
-    display: inline-block;
-
-    /* background box */
-    background: rgba(255, 255, 255, 0.3);   /* translucent white */
-    padding: 0.5rem 1rem;                  /* breathing room */
-    border-radius: 6px;                     /* rounded corners */
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);  /* subtle drop shadow */
-
-    /* spacing from the following text */
-    margin-bottom: 1rem;
-}
-
-p{margin-bottom:1.5rem;}
-
-/*======================================================================
-6️⃣  Welcome section
-======================================================================*/
 #welcome h1{
     text-align:center;
     max-width:90vw;
     margin:0 auto 1rem;
     font-size:4.5rem;
     color: rgba(210,210,210,0.85);
-}
-#welcome{
-    height:100vh;                 /* 100 % of the browser window */
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
 }
 #welcome .word{
     display:inline-block;
@@ -160,18 +142,16 @@ p{margin-bottom:1.5rem;}
     font-size:4.5rem;
 }
 
-/*======================================================================
-7.1 Carousel
-======================================================================*/
+/*=============================================================
+  7️⃣  Carousel
+  ============================================================*/
 .carousel{
     position:relative;
-    overflow-x:visible;
     width:100%;
     height:500px;
     margin-top:1rem;
     scroll-snap-type:x mandatory;
-   /*  margin-left:var(--sidebar-width);   iput that in commentary because somehow the other offset seems to double that one here.. keeps the slider below the sidebar */
-    z-index:15;
+    z-index:15;          /* keep it below arrows but above background */
 }
 .carousel .inner{
     display:flex;
@@ -181,7 +161,7 @@ p{margin-bottom:1.5rem;}
 }
 .carousel .item{
     flex:none;
-    width:600px;
+    width:600px;            /* desktop width */
     height:100%;
     margin-right:20px;
     background:#fff;
@@ -189,10 +169,17 @@ p{margin-bottom:1.5rem;}
     border-radius:4px;
     overflow:hidden;
     scroll-snap-align:start;
+    /* make the slide a flex container – keeps embeds centered */
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 .carousel .item iframe,
 .carousel .item img{
-    width:100%;height:100%;object-fit:cover;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border:0;
 }
 .carousel .inner .item.intro-item{
     background:rgba(0,0,0,0.3);
@@ -210,25 +197,86 @@ p{margin-bottom:1.5rem;}
     opacity:1;
     transition:opacity .4s ease;
 }
+
+/* --- arrows (the ones the JS looks for) -------------------------------- */
 .carousel .arrow{
-    position:fixed;
-    top:50%;transform:translateY(-50%);
-    width:40px;height:40px;
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:40px;
+    height:40px;
     background:rgba(255,255,255,.8);
-    border:none;border-radius:20px;
-    cursor:pointer;font-size:1.5rem;
-    display:flex;align-items:center;justify-content:center;
-    user-select:none;
-    z-index:20;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
+    font-size:1.5rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:30;               /* above the slide content */
+    pointer-events:auto;
 }
-.carousel .arrow.left{left:calc(var(--sidebar-width)+10px);}
-.carousel .arrow.right{right:10px;}
+.carousel .arrow.prev{left:calc(var(--sidebar-width)+10px);}
+.carousel .arrow.next{right:10px;}
 .carousel .arrow:hover{background:rgba(255,255,255,1);}
 
-/*======================================================================
-8. Impressum
-======================================================================*/
-#impressum p{margin:0.5rem 0;}
+/* Mobile carousel – single‑column, 90 vw width */
+@media (max-width:480px){
+    .carousel{
+        height:auto;                    /* let height adapt to content */
+    }
+    .carousel .item{
+        flex:0 0 90vw;                 /* 90 % of viewport width */
+        width:90vw;                    /* override 600 px desktop width */
+        height:auto;                    /* let height adjust */
+        margin-right:1rem;
+    }
+    /* Hide arrows on touch devices – they’re not useful in single‑column mode */
+    .carousel .arrow{
+        display:none;
+    }
+}
+/* ─────────────────────────────────────────────────────────────
+   1️⃣  Make every slide a relative container
+   ───────────────────────────────────────────────────────────── */
+.carousel .item{
+    position:relative;        /* needed for the absolute wrapper */
+}
+
+/* ─────────────────────────────────────────────────────────────
+   2️⃣  Wrapper that hides overflow and keeps 1:1
+   ───────────────────────────────────────────────────────────── */
+.carousel .video-wrapper{
+    position:absolute;
+    top:0; left:0; right:0; bottom:0;
+    overflow:hidden;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   3️⃣  Make the iframe stretch to the wrapper
+   ───────────────────────────────────────────────────────────── */
+.carousel .video-wrapper iframe{
+    position:absolute;
+    top:50%; left:50%;
+    width:100%; height:100%;
+    transform:translate(-50%,-50%);   /* center it */
+    border:0;
+}
+
+
+
+/*=============================================================
+  8️⃣  Impressum
+  ============================================================*/
+#impressum p{
+    font-size: 1.15rem;
+    color: #222;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 0.75rem 1.25rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+}
 #impressum .portrait{
     text-align:center;
     margin:2rem 0;
@@ -236,11 +284,12 @@ p{margin-bottom:1.5rem;}
 #impressum .portrait img{
     border-radius:50%;
     box-shadow:0 4px 12px rgba(0,0,0,0.3);
+    border:2px solid #fff;
 }
 
-/*======================================================================
-9. Minigame
-======================================================================*/
+/*=============================================================
+  9️⃣  Minigame
+  ============================================================*/
 #minigame{position:relative;}
 #minigame img{width:200px;height:200px;cursor:pointer;}
 #minigame iframe{
@@ -250,20 +299,9 @@ p{margin-bottom:1.5rem;}
     display:none;
 }
 
-/*======================================================================
-10. Intro container
-======================================================================*/
-.intro{
-    background:transparent;
-    color:inherit;
-    padding:.5rem 1rem;
-    max-width:80ch;
-    margin-top:1rem;
-}
-
-/*======================================================================
-11. Button styles (single, clean block)
-======================================================================*/
+/*=============================================================
+  🔟  Button styles
+  ============================================================*/
 .btn{
     display:inline-flex;
     align-items:center;
@@ -280,7 +318,7 @@ p{margin-bottom:1.5rem;}
     text-decoration:none;
 }
 .btn-primary{
-    background:rgba(211,211,211,.7);   /* silbrig, semi‑transparent */
+    background:rgba(211,211,211,.7);
     color:#222;
     padding:.9rem 1.9rem;
     font-size:2rem;
@@ -296,57 +334,26 @@ p{margin-bottom:1.5rem;}
 .btn:focus{outline:2px solid #ff5a5f;outline-offset:2px;}
 .btn:active{transform:translateY(1px);}
 
-/*======================================================================
-12. Parallax effect for all sections
-======================================================================*/
-    /* section{
- background-attachment:fixed;
-    background-size:cover;
-    background-position:center;
-    opacity:0; */
-    animation:fadeIn 1s forwards;
-} 
+/*=============================================================
+  1️⃣1️⃣  Parallax & fade‑in effect
+  ============================================================*/
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-*/ 
 
-
-/* ---------- 11.  Improve the Impressum text  -------------------- */
-#impressum p{
-    /* make the text a bit larger & darker */
-    font-size: 1.15rem;
-    color: #222;           /* dark gray – easier to read on light backgrounds */
-
-    /* give the paragraph a translucent white box */
-    background: rgba(255, 255, 255, 0.3);
-    padding: 0.75rem 1.25rem;
-    border-radius: 6px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-
-    /* optional: keep a little spacing between paragraphs */
-    margin-bottom: 1rem;
+/*=============================================================
+  1️⃣1️⃣  Mobile‑only adjustments
+  ============================================================*/
+@media (max-width:480px){
+    .intro, p{
+        max-width:90vw;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    section h2{
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
+    }
+    section{
+        background-size: cover;
+        background-position: center;
+        min-height:60vh;
+    }
 }
-
-/* Optional: add a subtle border around the portrait image */
-#impressum .portrait img{
-    border: 2px solid #fff;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-/* ---------- 12.  Visual adjustments for Mobiles -Small Screen Display  -------------------- */
-
-<br>@media (max-width: 480px){<br> main{ padding-left: 1rem; }<br>}<br> 
-<br>@media (max-width: 480px){<br> #sidebar{<br> position:fixed;<br> top:0;<br> left:0;<br> right:0;<br> height:3rem;<br> z-index:1000;<br> background:rgba(255,255,255,0.9);<br> backdrop-filter:none;<br> box-shadow:0 2px 5px rgba(0,0,0,0.1);<br> }<br> #sidebar button{<br> width: 100%;<br> }<br> main{<br> margin-top:3rem;<br> }<br>}<br>
-<br>section h2{<br> font-size: clamp(1.5rem, 4vw, 2.5rem);<br>}<br>
-<br>.intro, p{<br> max-width: 90vw;<br> margin-left:auto;<br> margin-right:auto;<br>}<br>
-
-/*full width for bg images on mobile */
-<br>section{<br> background-size: cover;<br> background-position: center;<br> min-height: 60vh;<br>}<br>
-<br>.carousel{<br> width:100%;<br> overflow-x:auto;<br> -webkit-overflow-scrolling:touch;<br> scroll-snap-type:x mandatory;<br>}<br>.carousel .inner{<br> display:flex;<br> gap:1rem;<br> scroll-snap-align:start;<br>}<br>.carousel .item{<br> flex:0 0 90vw;<br>}<br>
-
-/*hiding arrow on mobile */
-<br>@media (max-width: 480px){<br> .arrow{display:none;}<br>}<br>
-
-/* test if backgroudn fix makes issues <br>@media (hover: none){<br> section{ background-attachment:scroll; }<br>}<br> */
-
-/*======================================================================
-END OF STYLESHEET
-======================================================================*/

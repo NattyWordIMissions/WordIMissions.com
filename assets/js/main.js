@@ -170,26 +170,45 @@ function loadIntroText(section) {
     });
 }
 
-/* ────────────────────────────────────── 4.  Carousel navigation ────────────────────────────────────── */
+/* ─────────────────────── 4. Carousel navigation ------------------- */
 function initCarousel() {
   document.querySelectorAll('.carousel').forEach(carousel => {
-    const inner  = carousel.querySelector('.inner');
-    const items  = inner.children;
-    const left   = carousel.querySelector('.arrow.left');
-    const right  = carousel.querySelector('.arrow.right');
-    const step   = 620;   // 600 px width + 20 px margin
-    let current  = 0;
+    const inner     = carousel.querySelector('.inner');
+    const items     = inner.children;
+    const wrapper   = carousel.closest('.carousel-wrapper') || carousel; // <‑‑ parent
+    const arrowPrev = wrapper.querySelector('.arrow.prev');
+    const arrowNext = wrapper.querySelector('.arrow.next');
 
-    const update = () => {
-      inner.style.transform = `translateX(-${current * step}px)`;
+    /* ------------- figure out one‑slide width ------------- */
+    const GAP = 16;                    // 1rem ≈ 16px
+    let slideSize;
+
+    const computeSlideSize = () => {
+      // The first item’s width + gap
+      slideSize = items[0]?.offsetWidth + GAP;
     };
 
-    left.addEventListener('click', () => {
+    // Compute after a tiny delay so images/iframes can finish loading
+    setTimeout(computeSlideSize, 100);
+
+    let current = 0;
+
+    const update = () => {
+      inner.style.transform = `translateX(-${current * slideSize}px)`;
+    };
+
+    arrowPrev?.addEventListener('click', () => {
       if (current > 0) { current--; update(); }
     });
 
-    right.addEventListener('click', () => {
+    arrowNext?.addEventListener('click', () => {
       if (current < items.length - 1) { current++; update(); }
+    });
+
+    /* ---------- Optional: keyboard navigation -------------- */
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft') arrowPrev?.click();
+      if (e.key === 'ArrowRight') arrowNext?.click();
     });
   });
 }
