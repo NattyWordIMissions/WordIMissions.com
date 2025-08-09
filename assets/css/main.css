@@ -356,4 +356,90 @@ p{margin-bottom:1.5rem;}
         background-position: center;
         min-height:60vh;
     }
+ /* -------------------------------------------------------------
+   7️⃣  Carousel – mobile adjustments
+   ------------------------------------------------------------- */
+@media (max-width:480px) {
+    /* The carousel container – let it size to its content */
+    .carousel{
+        height: auto;            /* height will be determined by the first slide */
+        overflow: hidden;
+    }
+
+    /* All slides – make them fill the viewport width and grow in height */
+    .carousel .item{
+        width: 90vw;             /* 90 % of the viewport */
+        height: auto;            /* override the desktop 100% */
+        flex: 0 0 90vw;          /* keep flex‑box layout */
+        margin-right: 1rem;      /* a little gutter */
+        border-radius: 4px;      /* keep the round corners */
+    }
+
+    /* The special “intro‑text” item needs the same mobile overrides */
+    .carousel .inner .item.intro-item{
+        width: 90vw;
+        height: auto;
+        margin-right: 1rem;
+    }
+
+    /* Video wrapper – it should always be 100% of the item’s (now auto) height */
+    .carousel .video-wrapper{
+        height: 100%;              /* still needed for desktop */
+    }
+    /* …but override it for phones */
+    .carousel .video-wrapper{
+        height: auto;              /* let the video grow naturally */
+    }
+
+    /* Hide the navigation arrows on touch devices (already done) */
+    .carousel .arrow{
+        display:none;
+    }
+}
+
+/* -------------------------------------------------------------
+   5️⃣  Section styles – make the layout smaller & centered on phones
+   ------------------------------------------------------------- */
+@media (max-width:480px){
+    /* Remove the sidebar‑width padding – the sidebar is hidden on phones */
+    section{
+        padding-left: 1rem;          /* almost full width */
+        padding-right: 1rem;
+        min-height: auto;            /* let the content decide the height */
+        min-height: 60vh;            /* still keep some vertical space */
+    }
+
+    /* Intro / paragraph width – centre on phones */
+    .intro, p{
+        max-width: 90vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Smaller h2 font‑size on phones */
+    section h2{
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
+    }
+}
+
+/* -------------------------------------------------------------
+   8️⃣  Sidebar – optional hide on touch devices
+   ------------------------------------------------------------- */
+@media (max-width:480px){
+    #sidebar{
+        display:none;                 /* hide it on phones */
+    }
+    /* If you prefer a slide‑in menu, replace the above with your own JS/CSS */
+}
+
+/* -------------------------------------------------------------
+   9️⃣  Fix the video iframes on phones
+   ------------------------------------------------------------- */
+@media (max-width:480px){
+    /* The wrapper keeps the video centred; we just make sure the height is correct */
+    .carousel .video-wrapper{
+        height: auto;                /* override the 100% that collapsed the video */
+    }
+}
+
 }
