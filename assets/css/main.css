@@ -315,7 +315,7 @@ p{margin-bottom:1.5rem;}
 /*=============================================================
   1️⃣1️⃣  Mobile‑only adjustments
 ============================================================*/
-@media (max-width:768px){
+@media (max-width:880px){
     /* ---------- Section layout ----------
        Keep section background, but let it grow with its content */
     section{
@@ -417,4 +417,5 @@ p{margin-bottom:1.5rem;}
     } */
 
 }
+
 
