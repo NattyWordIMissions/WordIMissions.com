@@ -1,6 +1,6 @@
 /*=============================================================
   1️⃣  Custom properties (used by all the selectors)
-  ============================================================*/
+============================================================*/
 :root{
     --bg:#f0f8ff;
     --accent:#ff5a5f;
@@ -11,7 +11,7 @@
 
 /*=============================================================
   2️⃣  Global resets & helpers
-  ============================================================*/
+============================================================*/
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{
@@ -24,7 +24,7 @@ body{
 
 /*=============================================================
   3️⃣  Sidebar
-  ============================================================*/
+============================================================*/
 #sidebar{
     position:fixed;
     left:0;top:0;bottom:0;
@@ -54,7 +54,7 @@ body{
 
 /*=============================================================
   4️⃣  Main container
-  ============================================================*/
+============================================================*/
 main{
     margin-left:calc(var(--sidebar-width)+20px);
     flex:1;
@@ -65,15 +65,15 @@ main{
 
 /*=============================================================
   5️⃣  Section styles (background is set via --section-bg)
-  ============================================================*/
+============================================================*/
 section{
     position:relative;
     min-height:65vh;
-    max-height:100vh;
-    padding:2rem 1rem;              /* general top/bottom/right padding */
+    max-height:100vh;                 /* keeps the parallax “height” */
+    padding:2rem 1rem;                /* general top/bottom/right padding */
     padding-left: calc(var(--sidebar-width) + 20px);
     background:var(--section-bg);
-    background-attachment:fixed;          /* parallax */
+    background-attachment:fixed;      /* parallax */
     background-size:cover;
     background-position:center;
     background-repeat:no-repeat;
@@ -103,7 +103,7 @@ p{margin-bottom:1.5rem;}
 
 /*=============================================================
   6️⃣  Welcome section
-  ============================================================*/
+============================================================*/
 #welcome{
     height:100vh;
     display:flex;
@@ -144,7 +144,7 @@ p{margin-bottom:1.5rem;}
 
 /*=============================================================
   7️⃣  Carousel
-  ============================================================*/
+============================================================*/
 .carousel{
     position:relative;
     width:100%;
@@ -198,7 +198,7 @@ p{margin-bottom:1.5rem;}
     transition:opacity .4s ease;
 }
 
-/* --- arrows (the ones the JS looks for) -------------------------------- */
+/* Arrow styles (the ones the JS looks for) -------------------------------- */
 .carousel .arrow{
     position:absolute;
     top:50%;
@@ -220,54 +220,27 @@ p{margin-bottom:1.5rem;}
 .carousel .arrow.next{right:10px;}
 .carousel .arrow:hover{background:rgba(255,255,255,1);}
 
-/* Mobile carousel – single‑column, 90 vw width */
-@media (max-width:480px){
-    .carousel{
-        height:auto;                    /* let height adapt to content */
-    }
-    .carousel .item{
-        flex:0 0 90vw;                 /* 90 % of viewport width */
-        width:90vw;                    /* override 600 px desktop width */
-        height:auto;                    /* let height adjust */
-        margin-right:1rem;
-    }
-    /* Hide arrows on touch devices – they’re not useful in single‑column mode */
-    .carousel .arrow{
-        display:none;
-    }
-}
-/* ─────────────────────────────────────────────────────────────
-   1️⃣  Make every slide a relative container
-   ───────────────────────────────────────────────────────────── */
-.carousel .item{
-    position:relative;        /* needed for the absolute wrapper */
-}
-
-/* ─────────────────────────────────────────────────────────────
-   2️⃣  Wrapper that hides overflow and keeps 1:1
-   ───────────────────────────────────────────────────────────── */
+/* ---------- Video wrapper ----------
+       Auto height on phones (kept 100% on desktop) */
+ /* ---------- Video wrapper (desktop + mobile) ---------- */
 .carousel .video-wrapper{
-    position:absolute;
-    top:0; left:0; right:0; bottom:0;
-    overflow:hidden;
+    position:relative;      /* keep the wrapper inside the slide */
+    width:100%;             /* full slide width */
+    height:100%;            /* full slide height (500 px on desktop) */
+    overflow:hidden;        /* cut off the excess width */
 }
 
-/* ─────────────────────────────────────────────────────────────
-   3️⃣  Make the iframe stretch to the wrapper
-   ───────────────────────────────────────────────────────────── */
 .carousel .video-wrapper iframe{
-    position:absolute;
+    position:absolute;      /* centre the iframe */
     top:50%; left:50%;
     width:100%; height:100%;
-    transform:translate(-50%,-50%);   /* center it */
-    border:0;
+    transform:translate(-50%,-50%) scale(1.2); /* 20 % larger → left/right bars are cut */
 }
-
 
 
 /*=============================================================
-  8️⃣  Impressum
-  ============================================================*/
+  8️⃣  Impr. section
+============================================================*/
 #impressum p{
     font-size: 1.15rem;
     color: #222;
@@ -289,7 +262,7 @@ p{margin-bottom:1.5rem;}
 
 /*=============================================================
   9️⃣  Minigame
-  ============================================================*/
+============================================================*/
 #minigame{position:relative;}
 #minigame img{width:200px;height:200px;cursor:pointer;}
 #minigame iframe{
@@ -301,7 +274,7 @@ p{margin-bottom:1.5rem;}
 
 /*=============================================================
   🔟  Button styles
-  ============================================================*/
+============================================================*/
 .btn{
     display:inline-flex;
     align-items:center;
@@ -336,110 +309,111 @@ p{margin-bottom:1.5rem;}
 
 /*=============================================================
   1️⃣1️⃣  Parallax & fade‑in effect
-  ============================================================*/
+============================================================*/
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
 /*=============================================================
   1️⃣1️⃣  Mobile‑only adjustments
-  ============================================================*/
+============================================================*/
 @media (max-width:480px){
+    /* ---------- Section layout ----------
+       Keep section background, but let it grow with its content */
+    section{
+        min-height:auto;
+        max-height:auto;                /* remove 100vh constraint */
+        padding-left:1rem;
+        padding-right:1rem;
+    }
+
+    /* ---------- Intro / paragraphs ----------
+       Constrain to 90 % of the viewport width */
     .intro, p{
         max-width:90vw;
         margin-left:auto;
         margin-right:auto;
     }
+
+    /* ---------- Heading fonts ----------
+       Smaller, still readable */
     section h2{
         font-size: clamp(1.5rem, 4vw, 2.5rem);
     }
-    section{
-        background-size: cover;
-        background-position: center;
-        min-height:60vh;
+
+    /* ---------- Welcome ----------
+       Make the h1 fit the screen and center the buttons */
+    #welcome h1{
+        font-size: clamp(2rem, 5vw, 4.5rem);
+        width:90vw;
+        margin:auto;
     }
- /* -------------------------------------------------------------
-   7️⃣  Carousel – mobile adjustments
-   ------------------------------------------------------------- */
-@media (max-width:480px) {
-    /* The carousel container – let it size to its content */
+    .ctrl{
+        display:flex;
+        justify-content:center;
+        gap:0.5rem;
+        margin-top:1rem;
+    }
+
+    /* ---------- Carousel ----------
+       Single‑column layout, keep arrows visible (slightly smaller) */
     .carousel{
-        height: auto;            /* height will be determined by the first slide */
-        overflow: hidden;
+        height:auto;
     }
-
-    /* All slides – make them fill the viewport width and grow in height */
     .carousel .item{
-        width: 90vw;             /* 90 % of the viewport */
-        height: auto;            /* override the desktop 100% */
-        flex: 0 0 90vw;          /* keep flex‑box layout */
-        margin-right: 1rem;      /* a little gutter */
-        border-radius: 4px;      /* keep the round corners */
+        width:90vw;
+        flex:0 0 90vw;
+        margin-right:1rem;
+        height:auto;                /* let height adjust */
     }
-
-    /* The special “intro‑text” item needs the same mobile overrides */
     .carousel .inner .item.intro-item{
-        width: 90vw;
-        height: auto;
-        margin-right: 1rem;
+        width:90vw;
+        height:auto;
+        margin-right:1rem;
     }
-
-    /* Video wrapper – it should always be 100% of the item’s (now auto) height */
-    .carousel .video-wrapper{
-        height: 100%;              /* still needed for desktop */
-    }
-    /* …but override it for phones */
-    .carousel .video-wrapper{
-        height: auto;              /* let the video grow naturally */
-    }
-
-    /* Hide the navigation arrows on touch devices (already done) */
     .carousel .arrow{
-        display:none;
-    }
-}
-
-/* -------------------------------------------------------------
-   5️⃣  Section styles – make the layout smaller & centered on phones
-   ------------------------------------------------------------- */
-@media (max-width:480px){
-    /* Remove the sidebar‑width padding – the sidebar is hidden on phones */
-    section{
-        padding-left: 1rem;          /* almost full width */
-        padding-right: 1rem;
-        min-height: auto;            /* let the content decide the height */
-        min-height: 60vh;            /* still keep some vertical space */
+        width:30px;
+        height:30px;
+        font-size:1.2rem;
     }
 
-    /* Intro / paragraph width – centre on phones */
-    .intro, p{
-        max-width: 90vw;
-        margin-left: auto;
-        margin-right: auto;
+    
+
+
+
+
+    /* ---------- Images & iframes ----------
+       Prevent overflow */
+    section img,
+    section iframe{
+        max-width:100%;
+     /*   height:auto;   */
     }
 
-    /* Smaller h2 font‑size on phones */
-    section h2{
-        font-size: clamp(1.5rem, 4vw, 2.5rem);
-    }
-}
-
-/* -------------------------------------------------------------
-   8️⃣  Sidebar – optional hide on touch devices
-   ------------------------------------------------------------- */
-@media (max-width:480px){
+    /* ---------- Sidebar ----------
+       Slide‑in/out controlled by a hamburger */
     #sidebar{
-        display:none;                 /* hide it on phones */
+        transform:translateX(-100%);
+        transition:transform .3s ease;
     }
-    /* If you prefer a slide‑in menu, replace the above with your own JS/CSS */
-}
+    body.sidebar-open #sidebar{
+        transform:translateX(0);
+    }
+    #sidebar-toggle{
+        position:fixed;
+        top:1rem; right:1rem;
+        z-index:31;
+        background:rgba(255,255,255,.9);
+        border:none;
+        border-radius:4px;
+        padding:.5rem .7rem;
+        font-size:1.5rem;
+        cursor:pointer;
+        box-shadow:0 2px 4px rgba(0,0,0,.2);
+    }
 
-/* -------------------------------------------------------------
-   9️⃣  Fix the video iframes on phones
-   ------------------------------------------------------------- */
-@media (max-width:480px){
-    /* The wrapper keeps the video centred; we just make sure the height is correct */
-    .carousel .video-wrapper{
-        height: auto;                /* override the 100% that collapsed the video */
-    }
-}
+    /* ---------- Hide arrows on very small screens ----------
+       (you can still keep them if you prefer, but I leave them visible) */
+    /* .carousel .arrow{
+        display:none;
+    } */
 
 }
