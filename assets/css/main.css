@@ -68,7 +68,7 @@ main{
 ============================================================*/
 section{
     position:relative;
-    min-height:65vh;
+    min-height:65vh;   /* vertikal parallax still not working.. */
     max-height:100vh;                 /* keeps the parallax “height” */
     padding:2rem 1rem;                /* general top/bottom/right padding */
     padding-left: calc(var(--sidebar-width) + 20px);
@@ -148,7 +148,10 @@ p{margin-bottom:1.5rem;}
 .carousel{
     position:relative;
     width:100%;
-    height:500px;
+      /* Use vh units for responsive */
+ 	width: calc(90vw - var(--sidebar-width) - 2rem); 	/* Slightly smaller than full width ,which wasnt set at all before*/
+    	height: calc(50vh - var(--sidebar-width)); 		/* Maintain a slight reduction in height */
+    								/* before height was fixed to height:500px; */
     margin-top:1rem;
     scroll-snap-type:x mandatory;
     z-index:15;          /* keep it below arrows but above background */
@@ -161,10 +164,10 @@ p{margin-bottom:1.5rem;}
 }
 .carousel .item{
     flex:none;
-    width:600px;            /* desktop width */
+    width:600px; /* width: calc(90vw - var(--sidebar-width) - 2rem);  before unresponsive width:600px;     desktop width */
     height:100%;
-    margin-right:20px;
-    background:#fff;
+    margin-right:80px;   /* maybe responsive is better:margin-right: calc(5vw); Adjust this value as needed */
+    background: rgba(255,255,255,.2);
     box-shadow:0 2px 4px rgba(0,0,0,.1);
     border-radius:4px;
     overflow:hidden;
@@ -177,20 +180,20 @@ p{margin-bottom:1.5rem;}
 .carousel .item iframe,
 .carousel .item img{
     width:100%;
-    height:100%;
+    height:80%;
     object-fit:cover;
     border:0;
 }
 .carousel .inner .item.intro-item{
     background:rgba(0,0,0,0.3);
     color:#fff;
-    font-size:1.4rem;
+     font-size: calc(1rem + 0.5vw); /* Responsive font size before= font-size:1.4rem; */
     line-height:1.4;
     padding:1rem 1.5rem;
     box-sizing:border-box;
     text-align:center;
     width:600px;
-    margin-right:20px;
+    margin-right:80px;
     background-clip:padding-box;
 }
 .carousel .inner .item.intro-item.show{
@@ -234,7 +237,7 @@ p{margin-bottom:1.5rem;}
     position:absolute;      /* centre the iframe */
     top:50%; left:50%;
     width:100%; height:100%;
-    transform:translate(-50%,-50%) scale(1.2); /* 20 % larger → left/right bars are cut */
+    transform:translate(-50%,-50%) scale(1.0); /* 20 % larger → left/right bars are cut */
 }
 
 
@@ -355,27 +358,91 @@ p{margin-bottom:1.5rem;}
 
     /* ---------- Carousel ----------
        Single‑column layout, keep arrows visible (slightly smaller) */
-    .carousel{
-        height:auto;
-    }
-    .carousel .item{
-        width:90vw;
-        flex:0 0 90vw;
-        margin-right:1rem;
-        height:auto;                /* let height adjust */
-    }
+    
+.carousel{
+position: relative;
+    width: calc(90vw - var(--sidebar-width) - 2rem); /* Slightly smaller than full width */
+    height: calc(50vh - var(--sidebar-width)); /* Maintain a slight reduction in height */
+    margin-top: 1rem;
+    scroll-snap-type: x mandatory;
+    z-index: 15;          /* keep it below arrows but above background */
+}
+.carousel .inner {
+    display: flex;
+    height: 100%;
+    transition: transform .4s ease;
+    scroll-snap-type: x mandatory;
+}
+.carousel .item {
+    flex: none;
+    width: 100%; /* Full width of the container */
+    padding-bottom: 85%; /* Aspect ratio 4:3 is 75% (adjust as needed) */
+    position: relative;
+    background: rgba(255, 255, 255, .2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+    border-radius: 4px;
+    overflow: hidden;
+    scroll-snap-align: start;
+}
+
+.carousel .item iframe,
+.carousel .item img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 0;
+}
+
+
     .carousel .inner .item.intro-item{
         width:90vw;
-        height:auto;
-        margin-right:1rem;
-    }
-    .carousel .arrow{
-        width:30px;
-        height:30px;
-        font-size:1.2rem;
+        font-size: clamp(1rem, 2vw, 2.5rem); /* Responsive font size */
+    line-height: 1.4;
+    padding: 1rem 1.5rem;
+    box-sizing: border-box;
+    text-align: center;
+    width:100%; /* width: 90vw; also possible maybe, now Full width of the item */
+    margin-right: calc(2vw); /* Adjust as needed */
+		/* height:auto;     */
+        	/* margin-right:1rem; */
     }
 
-    
+
+
+   /* Arrow styles (the ones the JS looks for) -------------------------------- */
+.carousel .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, .8);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 30; /* above the slide content */
+    pointer-events: auto;
+}
+
+.carousel .arrow.prev {
+    left: calc(var(--sidebar-width) + 20px);
+}
+
+.carousel .arrow.next {
+    right: 20px;
+}
+
+.carousel .arrow:hover {
+    background: rgba(255, 255, 255, 0.95);
+}    
 
 
 
@@ -417,7 +484,6 @@ p{margin-bottom:1.5rem;}
     } */
 
 }
-
 
 
 

@@ -20,8 +20,10 @@ async function loadAllSections() {
   await loadSection('welcome',   'sections/welcome.html');
   await loadSection('natty',     'sections/natty.html');
   await loadSection('pixels',    'sections/pixels.html');
-  await loadSection('impressum', 'sections/impressum.html');
+  await loadSection('bionik',     'sections/bionik.html');
   await loadSection('minigame',  'sections/minigame.html');
+  await loadSection('impressum', 'sections/impressum.html');
+
 }
 
 /**

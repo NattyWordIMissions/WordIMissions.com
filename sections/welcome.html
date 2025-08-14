@@ -1,5 +1,13 @@
 <!-- sections/welcome.html -->
-<section id="welcome" data-bg="/assets/data/images/background/welcome.webp">
-  <!-- main.js will overwrite this with the animated words,
-       shuffle / restore buttons, etc. -->
+<section id="welcome"
+         data-bg="/assets/data/images/background/welcome.webp"
+         style="--section-bg:url('/assets/data/images/background/welcome.webp');">
+  <!-- All visible content is wrapped inside .section‑content so that
+       it is pushed to the right of the sidebar (and centered).  
+       main.js will replace the inner markup with the animated words,
+       shuffle/restore buttons, etc.  Keep the wrapper – it keeps the
+       layout intact on desktop and mobile. -->
+  <div class="section-content">
+    <!-- The JavaScript will populate this area -->
+  </div>
 </section>

@@ -17,7 +17,7 @@ async function loadWelcome() {
         data = {
             words: [
                 "Hello", " ","Welcome"," ", "to", " ","my", " ","Website"," ", "with","<br>", "my"," ",
-                "NattyWordIMissions"," ", "and"," ", "the", " ","PixelsIVision"
+                "Natty_Word_I_Missions"," ", "and"," ", "the", " ","Pixels_I_Vision"
             ]
         };
     }
@@ -177,10 +177,15 @@ function initSidebarToggle() {
 /*=============================================================
   5️⃣  Swipe support helper for the carousel
 ============================================================*/
+
+
+/*=============================================================
+  6️⃣  Carousel navigation (desktop + mobile)
+============================================================*/
 function addSwipeSupport(carousel) {
-    const inner  = carousel.querySelector('.inner');
-    const items  = inner.children;
-    const gap    = 16;            // px (same as before)
+    const inner = carousel.querySelector('.inner');
+    const items = inner.children;
+    const gap = 16;            // px (same as before)
     const minDiff = 50;           // px – threshold to trigger a slide
     let startX = 0;
 
@@ -189,7 +194,7 @@ function addSwipeSupport(carousel) {
     });
 
     inner.addEventListener('touchend', e => {
-        const endX   = e.changedTouches[0].clientX;
+        const endX = e.changedTouches[0].clientX;
         const deltaX = endX - startX;
 
         if (Math.abs(deltaX) < minDiff) return;   // too small
@@ -211,14 +216,11 @@ function addSwipeSupport(carousel) {
     });
 }
 
-/*=============================================================
-  6️⃣  Carousel navigation (desktop + mobile)
-============================================================*/
 function initCarousel() {
     document.querySelectorAll('.carousel').forEach(carousel => {
-        const inner     = carousel.querySelector('.inner');
-        const items     = inner.children;
-        const wrapper   = carousel.closest('.carousel-wrapper') || carousel;
+        const inner = carousel.querySelector('.inner');
+        const items = inner.children;
+        const wrapper = carousel.closest('.carousel-wrapper') || carousel;
         const arrowPrev = wrapper.querySelector('.arrow.prev');
         const arrowNext = wrapper.querySelector('.arrow.next');
 
@@ -238,24 +240,28 @@ function initCarousel() {
         };
 
         arrowPrev?.addEventListener('click', () => {
-            if (current > 0) { current--; update(); }
+            if (current > 0) { 
+                current--; 
+                update(); 
+            }
         });
 
         arrowNext?.addEventListener('click', () => {
-            if (current < items.length - 1) { current++; update(); }
+            if (current < items.length - 1) { 
+                current++; 
+                update(); 
+            }
         });
 
-        /* ---- swipe support ---- */
         addSwipeSupport(carousel);
 
         /* keyboard navigation */
         document.addEventListener('keydown', e => {
             if (e.key === 'ArrowLeft') arrowPrev?.click();
-            if (e.key === 'ArrowRight') arrowNext?.click();
+            if (e.key === 'ArrowRight') arrowNext?.click();  
         });
     });
 }
-
 /*=============================================================
   7️⃣  Minigame – click the icon to reveal the iframe
 ============================================================*/
